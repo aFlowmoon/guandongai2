@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +8,7 @@ import ProfileCard from "@/components/ProfileCard";
 import { knowledgeItems } from "@/data/mock";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { AuthContext } from "@/App";
 
 const mockTemplates = [
   {
@@ -38,6 +39,7 @@ export default function Profile() {
 
   const [activeTab, setActiveTab] = useState('account');
   const navigate = useNavigate();
+  const { logout } = useContext(AuthContext);
 
   useEffect(() => {
     localStorage.setItem('userProfile', JSON.stringify(user));
@@ -54,7 +56,7 @@ export default function Profile() {
     }, 500);
   };
 
-  const handleSaveProfile = (data: { name: string }) => {
+  const handleSaveProfile = async (data: { name: string }) => {
     setUser({...user, name: data.name});
     toast.success('个人信息已保存');
   };
@@ -73,12 +75,29 @@ export default function Profile() {
       <Navbar />
       
       <main className="flex-1 container mx-auto p-4">
+        {/* 退出登录按钮 */}
+        <div className="flex justify-end mb-6">
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
+            onClick={() => {
+              logout();
+              localStorage.removeItem("isAuthenticated");
+              window.location.href = "/login";
+            }}
+          >
+            <i className="fa-solid fa-sign-out-alt"></i>退出登录
+          </button>
+        </div>
         <div className="flex gap-6">
-          {/* 左侧导航 */}
-          <SideNav />
-
           {/* 右侧内容区 */}
           <div className="flex-1 space-y-6">
+            {/* 返回主页面按钮 */}
+            <button
+              className="mb-4 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors"
+              onClick={() => navigate("/")}
+            >
+              <i className="fa-solid fa-arrow-left mr-2"></i>返回主页面
+            </button>
             {/* 个人信息部分 */}
             <section id="account" className="scroll-mt-20">
               <div className="flex gap-6">

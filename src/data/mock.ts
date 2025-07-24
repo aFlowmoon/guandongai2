@@ -176,33 +176,28 @@ export const chatHistory = [
 // 新增：底部功能按钮
 export const functionButtons = [
   {
-    id: 'poster',
-    name: '社区海报',
-    icon: 'fa-solid fa-image',
+    id: 'writing',
+    name: '帮我写作',
+    icon: 'fa-solid fa-pen-nib',
     color: 'bg-blue-500'
   },
   {
-    id: 'finance',
-    name: '财务审核',
-    icon: 'fa-solid fa-file-invoice-dollar',
+    id: 'image',
+    name: '图片生成',
+    icon: 'fa-solid fa-image',
     color: 'bg-green-500'
   },
   {
-    id: 'image-gen',
-    name: '图片生成',
-    icon: 'fa-solid fa-camera',
+    id: 'analysis',
+    name: '数据分析',
+    icon: 'fa-solid fa-chart-bar',
     color: 'bg-purple-500'
-  },
-  {
-    id: 'meeting',
-    name: '会议纪要',
-    icon: 'fa-solid fa-file-lines',
-    color: 'bg-amber-500'
-  },
-  {
-    id: 'more',
-    name: '更多',
-    icon: 'fa-solid fa-ellipsis',
-    color: 'bg-gray-500'
   }
+];
+
+export const registeredUsers = [
+  { id: '1', name: '张三' },
+  { id: '2', name: '李四' },
+  { id: '3', name: '王五' },
+  { id: '4', name: '赵六' }
 ];

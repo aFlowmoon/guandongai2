@@ -1,20 +1,27 @@
-	name: Build and Deploy
- 	on: [push]
- 	permissions:
- 	contents: write
- 	jobs:
- 	build-and-deploy:
- 	runs-on: ubuntu-latest
- 	steps:
- 	- name: Checkout 🛎️
- 	uses: actions/checkout@v4
- 	 
- 	- name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
- 	run: |
- 	npm ci
- 	npm run build
- 	 
- 	- name: Deploy 🚀
- 	uses: JamesIves/github-pages-deploy-action@v4
- 	with:
- 	folder: dist # The folder the action should deploy.
+name: Build and Deploy
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # The folder the action should deploy.
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.6.2

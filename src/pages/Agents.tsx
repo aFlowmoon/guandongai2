@@ -5,100 +5,49 @@ import { cn } from "@/lib/utils";
 import { posterTemplates, financialBills } from "@/data/mock";
 
 const tools = [
-  { id: 'poster', name: '社区海报生成', icon: 'fa-solid fa-image' },
-  { id: 'finance', name: '财务审核', icon: 'fa-solid fa-file-invoice-dollar' },
-  { id: 'visit', name: '走访记录', icon: 'fa-solid fa-clipboard-list' }
+  { id: 'writing', name: '帮我写作', icon: 'fa-solid fa-pen-nib' },
+  { id: 'image', name: '图片生成', icon: 'fa-solid fa-image' },
+  { id: 'analysis', name: '数据分析', icon: 'fa-solid fa-chart-bar' }
 ];
 
-function PosterGenerator() {
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-  
+function WritingAssistant() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-bold">海报模板选择</h3>
-      <div className="grid grid-cols-2 gap-4">
-        {posterTemplates.map(template => (
-          <div 
-            key={template.id}
-            className={cn(
-              "border rounded-lg overflow-hidden cursor-pointer",
-              selectedTemplate === template.id ? "ring-2 ring-[#FFA500]" : ""
-            )}
-            onClick={() => setSelectedTemplate(template.id)}
-          >
-            <img 
-              src={template.thumbnail} 
-              alt={template.name}
-              className="w-full h-32 object-cover"
-            />
-            <div className="p-2 text-center">{template.name}</div>
-          </div>
-        ))}
-      </div>
-      {selectedTemplate && (
-        <div className="mt-4 p-4 bg-white rounded-lg">
-          <h3 className="text-lg font-bold mb-2">海报编辑区</h3>
-          <textarea 
-            className="w-full h-32 p-2 border rounded-lg" 
-            placeholder="输入海报内容..."
-          />
-        </div>
-      )}
+      <h3 className="text-lg font-bold">帮我写作</h3>
+      <textarea className="w-full h-32 p-2 border rounded-lg" placeholder="请输入您的写作需求..." />
+      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">生成内容</button>
     </div>
   );
 }
 
-function FinanceReview() {
-  const [bills, setBills] = useState(financialBills);
-  
+function ImageGenerator() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-bold">财务票据审核</h3>
-      <div className="space-y-2">
-        {bills.map(bill => (
-          <div key={bill.id} className="p-3 bg-white rounded-lg shadow-sm">
-            <div className="flex justify-between">
-              <span>{bill.type}</span>
-              <span className="font-bold">¥{bill.amount}</span>
-            </div>
-            <div className="text-sm text-gray-500">{bill.date}</div>
-          </div>
-        ))}
-      </div>
-      <button className="mt-4 px-4 py-2 bg-[#FFA500] text-white rounded-lg">
-        生成财务报告
-      </button>
+      <h3 className="text-lg font-bold">图片生成</h3>
+      <textarea className="w-full h-24 p-2 border rounded-lg" placeholder="请输入图片描述..." />
+      <button className="px-4 py-2 bg-green-500 text-white rounded-lg">生成图片</button>
     </div>
   );
 }
 
-function VisitRecord() {
-  const [content, setContent] = useState("");
-  
+function DataAnalysis() {
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-bold">走访记录</h3>
-      <textarea 
-        className="w-full h-40 p-2 border rounded-lg" 
-        placeholder="记录走访情况..."
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <button className="px-4 py-2 bg-[#FFA500] text-white rounded-lg">
-        生成走访报告
-      </button>
+      <h3 className="text-lg font-bold">数据分析</h3>
+      <textarea className="w-full h-24 p-2 border rounded-lg" placeholder="请输入需要分析的数据或问题..." />
+      <button className="px-4 py-2 bg-purple-500 text-white rounded-lg">开始分析</button>
     </div>
   );
 }
 
 export default function Agents() {
-  const [activeTool, setActiveTool] = useState('poster');
+  const [activeTool, setActiveTool] = useState('writing');
   
   const renderToolContent = () => {
     switch(activeTool) {
-      case 'poster': return <PosterGenerator />;
-      case 'finance': return <FinanceReview />;
-      case 'visit': return <VisitRecord />;
+      case 'writing': return <WritingAssistant />;
+      case 'image': return <ImageGenerator />;
+      case 'analysis': return <DataAnalysis />;
       default: return null;
     }
   };

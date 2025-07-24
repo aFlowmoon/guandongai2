@@ -46,25 +46,29 @@ export default function SideNav({ visible, onToggle, history, onSelectHistory, o
   };
 
   return (
-    <div className={`bg-white border-r border-gray-200 h-full flex flex-col transition-all duration-300 ease-in-out ${visible ? 'w-64' : 'w-0 overflow-hidden'}`}>
-      {/* 侧边栏切换按钮 */}
-      <button 
+    <>
+      {/* 固定左上角的侧边栏切换按钮 */}
+      <button
         onClick={onToggle}
-        className="absolute top-4 left-4 z-10 p-2 bg-white rounded-full shadow-md border border-gray-200"
-        aria-label={visible ? "隐藏侧边栏" : "显示侧边栏"}
+        className="fixed top-4 left-4 z-30 p-2 bg-white rounded-full shadow-md border border-gray-200 group"
+        aria-label={visible ? "收起侧栏" : "展开侧栏"}
       >
         <i className={`fa-solid ${visible ? 'fa-chevron-left' : 'fa-chevron-right'}`}></i>
+        <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity">
+          {visible ? '收起侧栏' : '展开侧栏'}
+        </span>
       </button>
-      {/* 新建会话按钮 */}
-      <div className="p-3">
-        <button 
-          onClick={handleNewChat}
-          className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
-        >
-          <i className="fa-solid fa-plus"></i>
-          <span>新建会话</span>
-        </button>
-      </div>
+      <div className={`bg-white border-r border-gray-200 h-full flex flex-col transition-all duration-300 ease-in-out ${visible ? 'w-64' : 'w-0 overflow-hidden'}`}>
+        {/* 新建会话按钮 */}
+        <div className="p-3">
+          <button 
+            onClick={handleNewChat}
+            className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+          >
+            <i className="fa-solid fa-plus"></i>
+            <span>新建会话</span>
+          </button>
+        </div>
 
       {/* 功能菜单 */}
       <div className="px-2 py-3">
@@ -140,5 +144,6 @@ export default function SideNav({ visible, onToggle, history, onSelectHistory, o
         </div>
       </div>
     </div>
+    </>
   );
 }

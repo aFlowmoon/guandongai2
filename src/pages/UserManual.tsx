@@ -259,78 +259,56 @@ const UserManual = () => {
       <Navbar />
       
       <div className="flex-1 flex overflow-hidden">
-         {/* 侧边栏 */}
-         <SideNav visible={sidebarVisible} onToggle={toggleSidebar} />
         
         {/* 主内容区 */}
         <div className={`flex-1 flex flex-col overflow-auto bg-white transition-all duration-300 ${sidebarVisible ? '' : 'ml-0'}`}>
           <div className="max-w-4xl mx-auto w-full p-8">
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* 目录 */}
-              <div className="md:w-1/5 lg:w-1/6 sticky top-6 self-start">
-                <div className="bg-white rounded-xl shadow-md p-2 border border-gray-100">
-                  <h2 className="text-xl font-bold text-gray-800 mb-4 pb-2 border-b">目录</h2>
-                  <ul className="space-y-1">
-                    {manualSections.map(section => (
-                      <li key={section.id}>
-                        <button
-                          onClick={() => scrollToSection(section.id)}
-                          className={cn(
-                            "w-full text-left px-3 py-2 rounded-lg text-sm transition-colors",
-                            activeSection === section.id 
-                              ? "bg-blue-500 text-white font-medium" 
-                              : "text-gray-700 hover:bg-gray-100"
-                          )}
-                        >
-                          {section.title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              
-              {/* 内容区域 */}
-              <div className="md:w-3/4 lg:w-4/5 space-y-8">
-                <div className="text-center mb-8">
-                  <h1 className="text-3xl font-bold text-gray-800 mb-2">产品使用手册</h1>
-                  <p className="text-gray-500">社区智能助手平台 - 使用指南</p>
-                </div>
-                
-                {manualSections.map(section => (
-                  <section 
-                    key={section.id} 
-                    id={section.id}
-                    ref={el => sectionRefs.current[section.id] = el}
-                    className={cn(
-                      "bg-white rounded-xl shadow-md p-6 border border-gray-100",
-                      activeSection === section.id ? "ring-2 ring-blue-500" : ""
-                    )}
-                  >
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">{section.title}</h2>
-                    <div 
-                      className="prose max-w-none text-gray-700"
-                      dangerouslySetInnerHTML={{ __html: section.content }}
-                    />
-                  </section>
-                ))}
-                
-                <div className="bg-blue-50 rounded-xl p-6 border border-blue-100">
-                  <h2 className="text-xl font-bold text-blue-800 mb-3">获取帮助</h2>
-                  <p className="text-blue-700">
-                    如果您在使用过程中遇到任何问题，请通过建议箱提交反馈，我们的团队将尽快为您提供帮助和支持。
-                  </p>
-                  <button 
-                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-                    onClick={() => {
-                      window.location.href = '/suggestions';
-                      toast.info('跳转到建议箱页面');
-                    }}
-                  >
-                    前往建议箱
-                  </button>
-                </div>
-              </div>
+            {/* 返回主页面按钮放在内容区左上角 */}
+            <button
+              className="mb-8 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors flex items-center gap-2"
+              onClick={() => window.location.href = '/'}
+            >
+              <i className="fa-solid fa-arrow-left"></i>返回主页面
+            </button>
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-extrabold mb-2 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-600 text-transparent bg-clip-text drop-shadow-lg">
+                产品使用手册
+              </h1>
+              <p className="text-gray-500">社区智能助手平台 - 使用指南</p>
+            </div>
+            {/* 简单文档风格，顺序展示所有章节 */}
+            <div className="space-y-8">
+              {manualSections.map(section => (
+                <section 
+                  key={section.id} 
+                  id={section.id}
+                  className="bg-white rounded-xl shadow p-6 border border-gray-100"
+                >
+                  <h2 className="text-2xl font-bold text-blue-700 mb-4">{section.title}</h2>
+                  <div 
+                    className="prose max-w-none text-gray-700 leading-relaxed text-lg"
+                    dangerouslySetInnerHTML={{ __html: section.content }}
+                  />
+                </section>
+              ))}
+            </div>
+            
+            <div className="bg-blue-50 rounded-2xl p-8 border border-blue-100 shadow flex flex-col items-center mt-8">
+              <h2 className="text-xl font-bold text-blue-800 mb-3 flex items-center gap-2">
+                <i className="fa-solid fa-circle-info"></i>获取帮助
+              </h2>
+              <p className="text-blue-700 mb-2">
+                如果您在使用过程中遇到任何问题，请通过建议箱提交反馈，我们的团队将尽快为您提供帮助和支持。
+              </p>
+              <button 
+                className="mt-4 px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-lg hover:bg-blue-600 shadow"
+                onClick={() => {
+                  window.location.href = '/suggestions';
+                  toast.info('跳转到建议箱页面');
+                }}
+              >
+                <i className="fa-solid fa-lightbulb mr-2"></i>前往建议箱
+              </button>
             </div>
           </div>
         </div>
