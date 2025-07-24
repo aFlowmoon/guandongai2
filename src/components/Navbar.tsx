@@ -29,8 +29,8 @@ export default function Navbar() {
         onClick={() => navigate('/')}
       >
         <img src="/assets/avatar-girl.png" alt="小人头像" className="w-10 h-10 object-contain" />
-         <h1 className="text-xl font-bold text-gray-800">
-           社区智能助手
+         <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+           社区智能助手 <span className="text-base font-normal text-blue-500">鄂小荟</span>
          </h1>
       </motion.div>
       

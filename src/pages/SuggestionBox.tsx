@@ -65,16 +65,9 @@ export default function SuggestionBox() {
       <Navbar />
       
       <div className="flex-1 flex overflow-hidden">
-         {/* 侧边栏 */}
-         <SideNav visible={sidebarVisible} onToggle={toggleSidebar} 
-           history={[]}
-           onSelectHistory={() => {}}
-           onDeleteHistory={() => {}}
-           onNewChat={() => {}}
-         />
         
-         {/* 主内容区 */}
-         <div className={`flex-1 flex flex-col overflow-auto bg-white p-8 transition-all duration-300 ${sidebarVisible ? '' : 'ml-0'}`}>
+        {/* 主内容区 */}
+        <div className={`flex-1 flex flex-col overflow-auto bg-white p-8 transition-all duration-300 ${sidebarVisible ? '' : 'ml-0'}`}>
           <div className="max-w-2xl mx-auto w-full">
             {/* 返回主页面按钮 */}
             <button

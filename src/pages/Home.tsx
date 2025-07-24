@@ -55,7 +55,7 @@ export default function Home() {
         // 添加欢迎消息
         const welcomeMessage: Message = {
           id: 'welcome',
-          content: '中午好！我是社区智能助手，有什么可以帮您的吗？',
+          content: '你好！我是鄂小荟，有什么可以帮您的吗？',
           sender: 'assistant',
           timestamp: new Date()
         };
@@ -102,7 +102,7 @@ export default function Home() {
   useEffect(() => {
     const welcomeMessage: Message = {
       id: 'welcome',
-      content: '中午好！我是社区智能助手，有什么可以帮您的吗？',
+      content: '你好！我是鄂小荟，有什么可以帮您的吗？',
       sender: 'assistant',
       timestamp: new Date()
     };
@@ -201,7 +201,7 @@ export default function Home() {
     setMessages([
       {
         id: 'welcome',
-        content: '中午好！我是社区智能助手，有什么可以帮您的吗？',
+        content: '你好！我是鄂小荟，有什么可以帮您的吗？',
         sender: 'assistant',
         timestamp: new Date()
       }
@@ -219,6 +219,33 @@ export default function Home() {
   const displayedMessages = viewingHistoryId
     ? (history.find(h => h.id === viewingHistoryId)?.messages || [])
     : messages;
+
+  // 财务审核相关
+  const [showFinanceModal, setShowFinanceModal] = useState(false);
+  const [financeList, setFinanceList] = useState<{id:string, file:string, note:string}[]>(() => {
+    return JSON.parse(localStorage.getItem('financeList') || '[]');
+  });
+  const [financeFile, setFinanceFile] = useState<File|null>(null);
+  const [financeNote, setFinanceNote] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    localStorage.setItem('financeList', JSON.stringify(financeList));
+  }, [financeList]);
+  const handleFinanceUpload = () => {
+    if (!financeFile) return toast.error('请上传票据图片');
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFinanceList(list => [
+        { id: Date.now().toString(), file: reader.result as string, note: financeNote },
+        ...list
+      ]);
+      setShowFinanceModal(false);
+      setFinanceFile(null);
+      setFinanceNote('');
+      toast.success('票据上传成功');
+    };
+    reader.readAsDataURL(financeFile);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -243,7 +270,7 @@ export default function Home() {
                {/* 会话标题 */}
                <div className="text-center py-4">
                  <h2 className="text-xl font-bold text-gray-800">{chatTitle}</h2>
-                 <p className="text-sm text-gray-500">与社区智能助手的对话</p>
+                 <p className="text-sm text-gray-500">与鄂小荟的对话</p>
                </div>
               {displayedMessages.map((message) => (
                 <div 
@@ -355,8 +382,19 @@ export default function Home() {
                           </button>
                         </>
                       ))}
+                      {/* 新增财务审核按钮前加竖线分割 */}
+                      <div className="h-8 w-px bg-gray-200 mx-2" />
+                      <button
+                        className="flex items-center px-6 py-2 rounded-2xl border border-gray-200 bg-white text-base font-medium shadow-sm hover:shadow-md transition-all duration-150 whitespace-nowrap gap-2"
+                        style={{ color: '#22c55e' }}
+                        onClick={() => handleFunctionSelect('finance', '财务审核')}
+                      >
+                        <i className="fa-solid fa-file-invoice-dollar"></i>
+                        <span>财务审核</span>
+                      </button>
                     </div>
                   </div>
+                  {/* 财务审核弹窗和票据列表已移除 */}
                 </div>
               </div>
             </>
