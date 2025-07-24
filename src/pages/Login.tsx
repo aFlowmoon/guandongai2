@@ -90,7 +90,7 @@ export default function Login() {
           <div className="p-8 space-y-6">
             <div className="text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i className="fa-solid fa-robot text-2xl text-blue-500"></i>
+                <img src="/assets/avatar-girl.png" alt="小人头像" className="w-12 h-12 object-contain" />
               </div>
               <h1 className="text-2xl font-bold text-gray-800">社区智能助手</h1>
               <p className="text-gray-500 mt-1">请登录您的账号</p>

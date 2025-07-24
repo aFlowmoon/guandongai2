@@ -254,8 +254,8 @@ export default function Home() {
                   )}
                 >
                   {message.sender === 'assistant' && (
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mr-3">
-                      <i className="fa-solid fa-robot text-blue-500"></i>
+                    <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 mr-3">
+                      <img src="/assets/avatar-girl.png" alt="小人头像" className="w-10 h-10 object-contain rounded-full" />
                     </div>
                   )}
                   
