@@ -89,8 +89,8 @@ export default function Login() {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 hover:shadow-2xl">
           <div className="p-8 space-y-6">
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <img src="/assets/avatar-girl.png" alt="小人头像" className="w-12 h-12 object-contain" />
+              <div className="w-20 h-20 mx-auto mb-4">
+                <img src="/assets/OIP.png" alt="机器人头像" className="w-full h-full rounded-full object-cover" />
               </div>
               <h1 className="text-2xl font-bold text-gray-800">社区智能助手</h1>
               <p className="text-gray-500 mt-1">请登录您的账号</p>
@@ -168,7 +168,7 @@ export default function Login() {
         </div>
         
         <p className="mt-6 text-center text-sm text-gray-500">
-          © 2025 社区智能助手平台 - 基于Coze风格设计
+          © 2025 社区智能助手平台 - 智能助手
         </p>
       </div>
     </div>

@@ -179,19 +179,19 @@ export const functionButtons = [
     id: 'writing',
     name: '帮我写作',
     icon: 'fa-solid fa-pen-nib',
-    color: 'bg-blue-500'
+    color: '#000000'
   },
   {
     id: 'image',
     name: '图片生成',
     icon: 'fa-solid fa-image',
-    color: 'bg-green-500'
+    color: '#000000'
   },
   {
     id: 'analysis',
     name: '数据分析',
     icon: 'fa-solid fa-chart-bar',
-    color: 'bg-purple-500'
+    color: '#000000'
   }
 ];
 

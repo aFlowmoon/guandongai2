@@ -10,29 +10,13 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { AuthContext } from "@/App";
 
-const mockTemplates = [
-  {
-    id: '1',
-    title: '社区活动通知',
-    description: '适用于社区节日活动、居民会议等通知场景',
-    rating: 4.5,
-    useCount: 128
-  },
-  {
-    id: '2',
-    title: '财务公示模板',
-    description: '社区财务收支公示标准模板',
-    rating: 4.2,
-    useCount: 86
-  }
-];
-
 export default function Profile() {
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('userProfile');
-    return savedUser ? JSON.parse(savedUser) : {
+    // 临时清除localStorage以使用新的默认头像
+    localStorage.removeItem('userProfile');
+    return {
       name: '社区工作者',
-      avatar: 'https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=%E7%A4%BE%E5%8C%BA%E5%B7%A5%E4%BD%9C%E8%80%85%E5%A4%B4%E5%83%8F&sign=33ec6bb5cb9e4e54a61496b915bbcf64',
+      avatar: './assets/touxiang.png',
       role: '社区管理员'
     };
   });
@@ -109,71 +93,6 @@ export default function Profile() {
                 </div>
                 <div className="flex-1">
                   <ProfileCard user={user} onSave={handleSaveProfile} />
-                </div>
-              </div>
-            </section>
-
-            {/* 我的知识部分 */}
-            <section id="knowledge" className="scroll-mt-20">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-bold mb-4">我的知识</h3>
-                <div className="space-y-3">
-                  {knowledgeItems
-                    .filter(item => item.status === 'approved')
-                    .map(item => (
-                      <div 
-                        key={item.id}
-                        className={cn(
-                          "p-4 border rounded-lg hover:shadow-md",
-                          "flex justify-between items-center"
-                        )}
-                      >
-                        <div>
-                          <h4 className="font-medium">{item.title}</h4>
-                          <p className="text-sm text-gray-500 line-clamp-1">{item.content}</p>
-                        </div>
-                        <button
-                          className="px-3 py-1 bg-[#FFA500]/10 text-[#FFA500] rounded-lg text-sm hover:bg-[#FFA500]/20"
-                          onClick={() => navigateToSource('knowledge', item.id)}
-                        >
-                          查看
-                        </button>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </section>
-
-            {/* 常用模板部分 */}
-            <section id="templates" className="scroll-mt-20">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-lg font-bold mb-4">常用模板</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {mockTemplates.map(template => (
-                    <div 
-                      key={template.id}
-                      className={cn(
-                        "p-4 border rounded-lg hover:shadow-md",
-                        "flex flex-col"
-                      )}
-                    >
-                      <div className="flex-1">
-                        <h4 className="font-medium">{template.title}</h4>
-                        <p className="text-sm text-gray-500">{template.description}</p>
-                      </div>
-                      <div className="mt-3 flex justify-between items-center">
-                        <span className="text-sm text-gray-500">
-                          {template.useCount}次使用
-                        </span>
-                        <button
-                          className="px-3 py-1 bg-[#FFA500]/10 text-[#FFA500] rounded-lg text-sm hover:bg-[#FFA500]/20"
-                          onClick={() => navigateToSource('template', template.id)}
-                        >
-                          使用模板
-                        </button>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </section>

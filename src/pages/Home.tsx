@@ -55,7 +55,7 @@ export default function Home() {
         // 添加欢迎消息
         const welcomeMessage: Message = {
           id: 'welcome',
-          content: '你好！我是鄂小荟，有什么可以帮您的吗？',
+          content: '你好！我是智能助手，有什么可以帮您的吗？',
           sender: 'assistant',
           timestamp: new Date()
         };
@@ -102,7 +102,7 @@ export default function Home() {
   useEffect(() => {
     const welcomeMessage: Message = {
       id: 'welcome',
-      content: '你好！我是鄂小荟，有什么可以帮您的吗？',
+      content: '你好！我是智能助手，有什么可以帮您的吗？',
       sender: 'assistant',
       timestamp: new Date()
     };
@@ -201,7 +201,7 @@ export default function Home() {
     setMessages([
       {
         id: 'welcome',
-        content: '你好！我是鄂小荟，有什么可以帮您的吗？',
+        content: '你好！我是智能助手，有什么可以帮您的吗？',
         sender: 'assistant',
         timestamp: new Date()
       }
@@ -270,7 +270,7 @@ export default function Home() {
                {/* 会话标题 */}
                <div className="text-center py-4">
                  <h2 className="text-xl font-bold text-gray-800">{chatTitle}</h2>
-                 <p className="text-sm text-gray-500">与鄂小荟的对话</p>
+                 <p className="text-sm text-gray-500">与智能助手的对话</p>
                </div>
               {displayedMessages.map((message) => (
                 <div 
@@ -282,7 +282,7 @@ export default function Home() {
                 >
                   {message.sender === 'assistant' && (
                     <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 mr-3">
-                      <img src="/assets/avatar-girl.png" alt="小人头像" className="w-10 h-10 object-contain rounded-full" />
+                      <img src="/assets/OIP.png" alt="机器人头像" className="w-10 h-10 object-contain rounded-full" />
                     </div>
                   )}
                   
@@ -333,8 +333,8 @@ export default function Home() {
                         <span>深度思考</span>
                       </button>
                       <div className="flex-1" />
-                      <button onClick={handleSendMessage} className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
-                        <i className="fa-solid fa-paper-plane"></i>
+                      <button onClick={handleSendMessage} className="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
+                        <i className="fa-solid fa-paper-plane text-lg"></i>
                       </button>
                     </div>
                     <input id="attachment-upload" type="file" className="hidden" onChange={(e) => {
@@ -369,12 +369,12 @@ export default function Home() {
                       {functionButtons.map((button, idx) => (
                         <>
                           {idx !== 0 && (
-                            <div className="h-8 w-px bg-gray-200 mx-2" />
+                            <div className="h-6 w-px bg-gray-200 mx-1" />
                           )}
                           <button
                             key={button.id}
                             onClick={() => handleFunctionSelect(button.id, button.name)}
-                            className="flex items-center px-6 py-2 rounded-2xl border border-gray-200 bg-white text-base font-medium shadow-sm hover:shadow-md transition-all duration-150 whitespace-nowrap gap-2"
+                            className="flex items-center px-4 py-1.5 rounded-xl border border-gray-200 bg-white text-sm font-medium shadow-sm hover:shadow-md transition-all duration-150 whitespace-nowrap gap-1.5"
                             style={{ color: button.color }}
                           >
                             <i className={button.icon}></i>
@@ -383,10 +383,10 @@ export default function Home() {
                         </>
                       ))}
                       {/* 新增财务审核按钮前加竖线分割 */}
-                      <div className="h-8 w-px bg-gray-200 mx-2" />
+                      <div className="h-6 w-px bg-gray-200 mx-1" />
                       <button
-                        className="flex items-center px-6 py-2 rounded-2xl border border-gray-200 bg-white text-base font-medium shadow-sm hover:shadow-md transition-all duration-150 whitespace-nowrap gap-2"
-                        style={{ color: '#22c55e' }}
+                        className="flex items-center px-4 py-1.5 rounded-xl border border-gray-200 bg-white text-sm font-medium shadow-sm hover:shadow-md transition-all duration-150 whitespace-nowrap gap-1.5"
+                        style={{ color: '#000000' }}
                         onClick={() => handleFunctionSelect('finance', '财务审核')}
                       >
                         <i className="fa-solid fa-file-invoice-dollar"></i>

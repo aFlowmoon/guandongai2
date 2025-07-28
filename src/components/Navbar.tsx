@@ -28,9 +28,9 @@ export default function Navbar() {
         whileHover={{ scale: 1.02 }}
         onClick={() => navigate('/')}
       >
-        <img src="/assets/avatar-girl.png" alt="小人头像" className="w-10 h-10 object-contain" />
+        <img src="/assets/OIP.png" alt="机器人头像" className="w-12 h-12 rounded-full object-cover" />
          <h1 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-           社区智能助手 <span className="text-base font-normal text-blue-500">鄂小荟</span>
+           社区智能助手
          </h1>
       </motion.div>
       
