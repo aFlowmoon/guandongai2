@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { chatHistory } from "@/data/mock";
 
 interface SideNavProps {
   visible: boolean;
@@ -47,7 +46,7 @@ export default function SideNav({ visible, onToggle, history, onSelectHistory, o
 
   return (
     <>
-      {/* 固定左上角的侧边栏切换按钮 */}
+      {/* 侧边栏切换按钮：位置、交互不变 */}
       <button
         onClick={onToggle}
         className="fixed top-4 left-4 z-30 p-2 bg-white rounded-full shadow-md border border-gray-200 group"
@@ -58,8 +57,13 @@ export default function SideNav({ visible, onToggle, history, onSelectHistory, o
           {visible ? '收起侧栏' : '展开侧栏'}
         </span>
       </button>
-      <div className={`bg-white border-r border-gray-200 h-full flex flex-col transition-all duration-300 ease-in-out ${visible ? 'w-64' : 'w-0 overflow-hidden'}`}>
-        {/* 新建会话按钮 */}
+
+      {/* 侧边栏容器：核心调整！统一背景、去掉不必要的嵌套 */}
+      <div 
+        className={`bg-white border-r border-gray-200 h-full flex flex-col transition-all duration-300 ease-in-out 
+                   ${visible ? 'w-64' : 'w-0 overflow-hidden'}`}
+      >
+        {/* 新建会话按钮：保持原有样式 */}
         <div className="p-3">
           <button 
             onClick={handleNewChat}
@@ -70,48 +74,49 @@ export default function SideNav({ visible, onToggle, history, onSelectHistory, o
           </button>
         </div>
 
-      {/* 功能菜单 */}
-      <div className="px-2 py-3">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">功能菜单</h3>
-        <div className="space-y-1">
-          <button
-            onClick={handleKnowledgeUpload}
-            className="w-full flex items-center gap-3 p-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-              <i className="fa-solid fa-upload"></i>
-            </div>
-            <span>知识上传</span>
-          </button>
-          
-          <button
-            onClick={handleSuggestionBox}
-            className="w-full flex items-center gap-3 p-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-              <i className="fa-solid fa-lightbulb"></i>
-            </div>
-           <span>建议箱</span>
-         </button>
-         
-         <button
-           onClick={() => navigate('/manual')}
-           className="w-full flex items-center gap-3 p-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
-         >
-           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-             <i className="fa-solid fa-book"></i>
-           </div>
-           <span>使用手册</span>
-         </button>
-        </div>
-      </div>
-
-      {/* 历史会话 */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="px-2 py-3 border-t border-gray-200">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">历史会话</h3>
+        {/* 功能菜单：保持原有结构，和历史会话区用 border 分隔 */}
+        <div className="px-2 py-3 border-b border-gray-200">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-3">功能菜单</h3>
           <div className="space-y-1">
-            {history.length === 0 && <div className="text-gray-400 text-sm px-3 py-6">暂无历史会话</div>}
+            <button
+              onClick={handleKnowledgeUpload}
+              className="w-full flex items-center gap-3 p-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+            >
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                <i className="fa-solid fa-upload"></i>
+              </div>
+              <span>知识上传</span>
+            </button>
+
+            <button
+              onClick={handleSuggestionBox}
+              className="w-full flex items-center gap-3 p-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+            >
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                <i className="fa-solid fa-lightbulb"></i>
+              </div>
+              <span>建议箱</span>
+            </button>
+
+            <button
+              onClick={() => navigate('/manual')}
+              className="w-full flex items-center gap-3 p-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+            >
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                <i className="fa-solid fa-book"></i>
+              </div>
+              <span>使用手册</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 历史会话：去掉独立 border-t，用侧边栏整体背景 + 间距区分 */}
+        <div className="flex-1 overflow-y-auto p-3">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-1">历史会话</h3>
+          <div className="space-y-1">
+            {history.length === 0 && (
+              <div className="text-gray-400 text-sm px-3 py-2">暂无历史会话</div>
+            )}
             {history.map((chat) => (
               <motion.div
                 key={chat.id}
@@ -143,7 +148,6 @@ export default function SideNav({ visible, onToggle, history, onSelectHistory, o
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

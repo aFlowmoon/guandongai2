@@ -5,16 +5,16 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { AuthContext } from "@/App";
 
-// 登录表单验证 schema
+// 登录表单验证 schema（改为账号密码校验）
 const loginSchema = z.object({
-  username: z.string().min(3, "用户名至少需要3个字符"),
-  password: z.string().min(6, "密码至少需要6个字符")
+  username: z.string().min(1, "请输入账号"), // 账号校验
+  password: z.string().min(1, "请输入密码")  // 密码校验
 });
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    username: "",
-    password: ""
+    username: "", 
+    password: ""  
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +53,7 @@ export default function Login() {
     }
   };
 
-  // 处理表单提交
+  // 处理表单提交（改为账号密码校验逻辑）
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -66,15 +66,16 @@ export default function Login() {
       // 模拟 API 请求延迟
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // 模拟登录验证 (实际项目中应该调用后端 API)
-      if (formData.username === "admin" && formData.password === "password") {
+      // 固定账号密码校验：superadmin / 1
+      if (formData.username === "superadmin" && formData.password === "1") {
         // 登录成功，保存认证状态
         setIsAuthenticated(true);
         localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("username", formData.username); // 存储用户名
         toast.success("登录成功！");
         navigate("/"); // 重定向到主页
       } else {
-        toast.error("用户名或密码错误");
+        toast.error("账号或密码错误");
       }
     } catch (error) {
       toast.error("登录失败，请重试");
@@ -93,13 +94,14 @@ export default function Login() {
                 <img src="/assets/OIP.png" alt="机器人头像" className="w-full h-full rounded-full object-cover" />
               </div>
               <h1 className="text-2xl font-bold text-gray-800">社区智能助手</h1>
-              <p className="text-gray-500 mt-1">请登录您的账号</p>
+              <p className="text-gray-500 mt-1">请使用账号密码登录</p>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* 账号输入框 */}
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                  用户名
+                  登录账号
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -115,7 +117,7 @@ export default function Login() {
                       "w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent transition-all",
                       errors.username ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
                     )}
-                    placeholder="请输入用户名"
+                    placeholder="请输入账号"
                   />
                 </div>
                 {errors.username && (
@@ -123,9 +125,10 @@ export default function Login() {
                 )}
               </div>
               
+              {/* 密码输入框 */}
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                  密码
+                  登录密码
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -149,6 +152,7 @@ export default function Login() {
                 )}
               </div>
               
+              {/* 登录按钮 */}
               <button
                 type="submit"
                 disabled={isLoading}
@@ -161,7 +165,8 @@ export default function Login() {
             
             <div className="text-center text-sm text-gray-500">
               <p>
-                演示账号: <span className="font-medium">admin</span> | 密码: <span className="font-medium">password</span>
+                演示账号: <span className="font-medium">superadmin</span> &nbsp; 
+                演示密码: <span className="font-medium">1</span>
               </p>
             </div>
           </div>

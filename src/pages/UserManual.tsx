@@ -35,8 +35,8 @@ const manualSections = [
         <li>登录成功后将自动跳转至首页</li>
       </ol>
       <div class="bg-blue-50 p-3 rounded-lg mt-4">
-        <p class="text-sm"><strong>演示账号：</strong>admin</p>
-        <p class="text-sm"><strong>密码：</strong>password</p>
+        <p class="text-sm"><strong>演示账号：</strong>superadmin</p>
+        <p class="text-sm"><strong>密码：</strong>1</p>
       </div>
       <h4 class="mt-4">个人资料管理</h4>
       <p>您可以在个人中心修改个人信息：</p>

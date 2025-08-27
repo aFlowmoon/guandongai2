@@ -12,11 +12,10 @@ import { AuthContext } from "@/App";
 
 export default function Profile() {
   const [user, setUser] = useState(() => {
-    // 临时清除localStorage以使用新的默认头像
-    localStorage.removeItem('userProfile');
-    return {
+    const savedUser = localStorage.getItem('userProfile');
+    return savedUser ? JSON.parse(savedUser) : {
       name: '社区工作者',
-      avatar: './assets/touxiang.png',
+      avatar: '/assets/touxiang.png',
       role: '社区管理员'
     };
   });

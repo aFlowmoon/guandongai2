@@ -19,11 +19,18 @@ export default function ProfileCard({
   onSave: (data: { name: string }) => Promise<void>;
 }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({
-    name: user.name
-  });
+  const [editData, setEditData] = useState({ name: user.name });
   const [errors, setErrors] = useState<{ name?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [userPhone, setUserPhone] = useState<string>("");
+
+  useEffect(() => {
+    // 从localStorage获取用户手机号
+    const phone = localStorage.getItem("userPhone");
+    if (phone) {
+      setUserPhone(phone);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isEditing) {
@@ -46,7 +53,7 @@ export default function ProfileCard({
 
   const handleSave = async () => {
     if (!validate()) return;
-    
+
     setIsSubmitting(true);
     try {
       await onSave(editData);
@@ -102,12 +109,10 @@ export default function ProfileCard({
                 errors.name ? "border-red-500" : "border-gray-300"
               )}
               value={editData.name}
-              onChange={(e) => setEditData({...editData, name: e.target.value})}
+              onChange={(e) => setEditData({ ...editData, name: e.target.value })}
               onBlur={() => validate()}
             />
-            {errors.name && (
-              <p className="text-sm text-red-500">{errors.name}</p>
-            )}
+            {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
           </div>
         ) : (
           <div className="space-y-1">
@@ -115,6 +120,11 @@ export default function ProfileCard({
             <p className="font-medium">{user.name}</p>
           </div>
         )}
+
+        <div className="space-y-1">
+          <p className="text-sm text-gray-500">手机号码</p>
+          <p className="font-medium">{userPhone || "未设置"}</p>
+        </div>
 
         <div className="space-y-1">
           <p className="text-sm text-gray-500">角色</p>
